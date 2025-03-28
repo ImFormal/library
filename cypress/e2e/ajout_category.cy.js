@@ -21,6 +21,6 @@ describe('Tests ajout catégorie', () => {
       cy.get('.btn').click();
 
     //Assert
-      cy.url().should('eq', 'https://127.0.0.1:8000/category/new') // Le form n'a pas pu être validé donc on est toujours sur la même page
+      cy.url().should('eq', 'http://127.0.0.1:8000/category/new') // Le form n'a pas pu être validé donc on est toujours sur la même page
   });  
 });
