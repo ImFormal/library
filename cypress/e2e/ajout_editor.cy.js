@@ -1,7 +1,7 @@
 describe('Tests editor', () => {
     //Arrange
     beforeEach(() => {
-        cy.visit('https://127.0.0.1:8000/editor'); 
+        cy.visit('http://127.0.0.1:8000/editor'); 
     });
 
     it('affiche la liste des éditeurs (vide)', () => {

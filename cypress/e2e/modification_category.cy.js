@@ -1,7 +1,7 @@
 describe('Modification de catégorie', () => {
     //Arrange
     beforeEach(() => {
-        cy.visit('https://127.0.0.1:8000/category'); 
+        cy.visit('http://127.0.0.1:8000/category'); 
     });
 
     it('devrait changer le nom de la catégorie avec succès', () => {
