@@ -1,27 +1,18 @@
 {
-  "name": "library",
+  "name": "book_library",
   "version": "1.0.0",
-  "description": "",
-  "homepage": "https://github.com/ImFormal/library#readme",
-  "bugs": {
-    "url": "https://github.com/ImFormal/library/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ImFormal/library.git"
-  },
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
+  "description": "**Documentation du projet** :",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
-  },
+"scripts": {
+  "cypress:open": "cypress open",
+  "cypress:run": "cypress run"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "cypress": "^14.2.1"
   }
