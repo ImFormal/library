@@ -23,7 +23,7 @@ describe('Modification de catégorie', () => {
         cy.contains('Update').click();
     
         // Assert
-        cy.visit('https://127.0.0.1:8000/category'); 
+        cy.visit('http://127.0.0.1:8000/category'); 
         cy.contains('Cuisine').should('not.exist');
       });
 
