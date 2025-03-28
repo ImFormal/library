@@ -56,7 +56,7 @@ jobs:
             # démarrage du serveur Symfony
             - name: Run Symfony local server
               run: |
-                php -S 127.0.0.1:8001 -t public &
+                php -S 127.0.0.1:8000 -t public &
             
             # Cypress Actions
             - name : Test Cypress
