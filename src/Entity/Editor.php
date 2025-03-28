@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\EditorRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EditorRepository::class)]
 class Editor
@@ -13,7 +14,8 @@ class Editor
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, unique: true)]
+    #[Assert\NotBlank]
     private ?string $name = null;
 
     public function getId(): ?int
