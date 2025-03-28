@@ -1,79 +1,63 @@
 name: Symfony 7 + Cypress E2E Tests
 
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
-
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
 jobs:
-  Symfony-test:
-    runs-on: ubuntu-latest
-    # Installation des services
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: app
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping -h localhost"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
-    steps:
-      # Récupération du code du repository
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Configuration de PHP
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.3.14"
-          extensions: mbstring, intl, pdo_mysql, sodium
-          tools: composer
-
-      # Paramétrage de l'environnement de test
-      - name: Set up .env for CI
-        run: |
-          cp .env .env.test
-          echo "APP_ENV=test" >> .env
-          echo "APP_ENV=test" >> .env.test
-          echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/app" >> .env.test
-
-      # Installation des dépendances Symfony
-      - name: Install PHP dependencies
-        run: composer install --no-interaction --prefer-dist
-
-      # Migration de la base de données
-      - name: Run DB migrations
-        run: |
-          php bin/console d:d:c
-          php bin/console d:m:m
-
-      # Démarrage du serveur Symfony
-      - name: Run Symfony local server
-        run: |
-          php -S 127.0.0.1:8000 -t public &
-
-      # Attente que le serveur Symfony soit prêt (ajouter un délai d'attente)
-      - name: Wait for Symfony server to be ready
-        run: |
-          echo "Waiting for Symfony server to be ready..."
-          sleep 10  # Attendre 10 secondes pour s'assurer que le serveur est démarré
-
-      # Installation de Node.js et Cypress
-      - name: Install Node.js and Cypress
-        run: |
-          curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-          sudo apt-get install -y nodejs
-          npm install cypress --save-dev
-
-      # Exécution des tests Cypress
-      - name: Run Cypress tests
-        run: |
-          npx cypress run --headless --no-exit
+    Symfony-test:
+        runs-on: ubuntu-latest
+        # installation des services
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ROOT_PASSWORD: root
+                    MYSQL_DATABASE: app
+                ports:
+                    - 3306:3306
+                options: >-
+                    --health-cmd="mysqladmin ping -h localhost"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retries=5
+        steps:
+            # récupération du code du repository
+            - name: Checkout code
+              uses: actions/checkout@v4
+            
+            # configuration de PHP
+            - name: Set up PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                php-version: "8.2"
+                extensions: mbstring, intl, pdo_mysql, sodium
+                tools: composer  
+            
+            # paramétrage de l'environnement de test
+            - name: Set up .env for CI
+              run: |
+                cp .env .env.test
+                echo "APP_ENV=test" >> .env
+                echo "APP_ENV=test" >> .env.test
+                echo "DATABASE_URL=mysql://root:root@127.0.0.1:3306/app" >> .env.test
+            
+            # installation des dépendances Symfony
+            - name: Install PHP dependencies
+              run: composer install --no-interaction --prefer-dist
+            
+            # migration de la base de données
+            - name: migration DB
+              run: |
+                php bin/console d:d:c
+                php bin/console d:m:m
+            
+            # démarrage du serveur Symfony
+            - name: Run Symfony local server
+              run: |
+                php -S 127.0.0.1:8001 -t public &
+            
+            # Cypress Actions
+            - name : Test Cypress
+              uses: cypress-io/github-action@v6
