@@ -77,4 +77,3 @@ jobs:
       - name: Run Cypress tests
         run: |
           npx cypress run --headless --no-exit
-
